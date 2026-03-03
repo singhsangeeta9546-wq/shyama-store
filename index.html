@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SHYAMA | Premium Ethnic Store - Sarees, Jewelry, Kurtis</title>
+    <meta name="description" content="SHYAMA - Premium Ethnic Wear Online Store. Sarees, Jewelry, Kurtis, Lehenga with FREE Delivery & Cash on Delivery">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Poppins:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body { 
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+        }
+        
+        .brand-font { 
+            font-family: 'Playfair Display', serif;
+            font-weight: 900;
+        }
+        
+        .modal-active { 
+            overflow: hidden; 
+        }
+        
+        .category-active { 
+            border-b-4 border-red-900;
+            color: #7f1d1d;
+            font-weight: 700;
+        }
+        
+        .product-hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        
+        .product-item {
+            transition: all 0.3s ease;
+        }
+        
+        .product-item:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(127, 29, 29, 0.2);
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes slideInDown {
+            from {
+                transform: translateY(-100%);
+            }
+            to {
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes pulse-custom {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+        
+        .animate-slide-down {
+            animation: slideInDown 0.5s ease;
+        }
+        
+        .animate-fade-in {
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .animate-pulse-custom {
+            animation: pulse-custom 2s infinite;
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #7f1d1d 0%, #991b1b 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .btn-gradient {
+            background: linear-gradient(135deg, #7f1d1d 0%, #991b1b 100%);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-gradient:hover {
+            background: linear-gradient(135deg, #5a1212 0%, #6b1313 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(127, 29, 29, 0.3);
+        }
+        
+        .badge-new {
+            background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%);
+            animation: pulse-custom 2s infinite;
+        }
+        
+        .badge-sale {
+            background: linear-gradient(135deg, #eab308 0%, #ca8a04 100%);
+        }
+        
+        input:focus, textarea:focus, select:focus {
+            border-color: #7f1d1d;
+            box-shadow: 0 0 0 3px rgba(127, 29, 29, 0.1);
+        }
+        
+        .floating-cart {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 40;
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .product-image-container {
+            position: relative;
+            overflow: hidden;
+            height: 256px;
+            background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
+        }
+        
+        .product-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .product-item:hover .product-image-container img {
+            transform: scale(1.1) rotate(1deg);
+        }
+        
+        .rating {
+            color: #fbbf24;
+            font-size: 14px;
+        }
+        
+        .testimonial-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f9fafb 100%);
+            border-left: 4px solid #7f1d1d;
+            transition: all 0.3s ease;
+        }
+        
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(127, 29, 29, 0.1);
+        }
+        
+        .feature-icon {
+            font-size: 40px;
+            margin-bottom: 12px;
+            display: inline-block;
+        }
+        
+        .payment-method {
+            padding: 12px;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .payment-method:hover {
+            border-color: #7f1d1d;
+            background-color: #fef2f2;
+        }
+        
+        .payment-method.active {
+            border-color: #7f1d1d;
+            background-color: #fef2f2;
+        }
+        
+        .size-option {
+            padding: 8px 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-weight: 500;
+        }
+        
+        .size-option:hover {
+            border-color: #7f1d1d;
+            background-color: #fef2f2;
+        }
+        
+        .size-option.active {
+            border-color: #7f1d1d;
+            background-color: #7f1d1d;
+            color: white;
+        }
+        
+        /* Scroll Animation */
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+        
+        .scroll-reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+
+    <!-- Floating WhatsApp Button -->
+    <a href="https://wa.me/919876543210" target="_blank" class="fixed bottom-24 right-6 bg-green-500 text-white p-4 rounded-full shadow-lg hover:bg-green-600 transition z-30 flex items-center justify-center" title="Chat with us on WhatsApp">
+        <i class="fab fa-whatsapp text-2xl"></i>
+    </a>
+
+    <!-- Navigation Bar with Logo -->
+    <nav class="bg-white shadow-lg p-4 sticky top-0 z-50 border-b-4 border-red-900 animate-slide-down">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <div class="text-3xl brand-font text-red-900 tracking-widest uppercase italic">✨ SHYAMA</div>
+                <span class="text-xs font-bold text-red-600">Premium Ethnic Wear</span>
+            </div>
+            
+            <div class="hidden md:flex items-center space-x-6 flex-1 justify-center">
+                <input type="text" id="searchBox" placeholder="Search products..." class="border-2 border-gray-300 rounded-full px-4 py-2 text-sm focus:border-red-900 w-64">
+                <button class="text-gray-700 hover:text-red-900 transition text-lg">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+            
+            <div class="flex items-center space-x-6">
+                <button class="hidden md:block text-gray-700 hover:text-red-900 transition text-lg">
+                    <i class="fas fa-heart"></i>
+                    <span class="text-xs bg-red-600 text-white rounded-full w-5 h-5 flex items-center justify-center absolute ml-3 -mt-3">0</span>
+                </button>
+                <button class="text-gray-700 hover:text-red-900 transition text-lg relative">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span id="cartCount" class="text-xs bg-red-600 text-white rounded-full w-5 h-5 flex items-center justify-center absolute ml-3 -mt-3">0</span>
+                </button>
+                <button class="md:hidden text-gray-700 hover:text-red-900 transition text-lg">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Animated Promo Banner -->
+    <div class="bg-gradient-to-r from-red-900 to-red-800 text-white text-center py-3 text-sm font-bold tracking-widest uppercase italic shadow-lg animate-pulse-custom">
+        <div class="max-w-7xl mx-auto flex items-center justify-center space-x-2">
+            <span class="text-2xl">🎉</span>
+            <span>FESTIVE SALE: सभी orders पर FREE Delivery + Cash on Delivery!</span>
+            <span class="text-2xl">🎉</span>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-r from-red-50 to-red-100 py-12 mb-8">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <h1 class="text-5xl md:text-6xl brand-font text-red-900 mb-4 italic animate-fade-in">
+                SHYAMA Premium Ethnic Store
+            </h1>
+            <p class="text-lg text-gray-700 mb-8 animate-fade-in max-w-2xl mx-auto">
+                भारतीय परंपरा को नए अंदाज़े में पहनें। Sarees, Jewelry, Kurtis, Lehenga - सब कुछ एक जगह।
+            </p>
+            <div class="flex justify-center space-x-4">
+                <button onclick="document.getElementById('products-section').scrollIntoView({behavior: 'smooth'})" class="btn-gradient text-white font-bold px-8 py-3 rounded-full uppercase tracking-wider">
+                    Shop Now
+                </button>
+                <button onclick="alert('Loading...')" class="border-2 border-red-900 text-red-900 font-bold px-8 py-3 rounded-full uppercase tracking-wider hover:bg-red-900 hover:text-white transition">
+                    View Collections
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Category Filter Section -->
+    <div class="max-w-7xl mx-auto px-4 mb-12">
+        <div id="products-section">
+            <h2 class="text-center text-gray-500 uppercase tracking-widest text-xs mb-8 font-bold">Featured Collection</h2>
+            
+            <div class="flex justify-center flex-wrap gap-2 mb-10">
+                <button onclick="filterProducts('all', this)" class="category-btn category-active px-6 py-2 border-b-4 border-red-900 text-red-900 font-bold uppercase text-sm whitespace-nowrap transition">
+                    <i class="fas fa-th"></i> सब कुछ (All)
+                </button>
+                <button onclick="filterProducts('jewelry', this)" class="category-btn px-6 py-2 border-b-2 border-gray-300 text-gray-600 font-bold uppercase text-sm whitespace-nowrap hover:text-red-900 transition">
+                    💎 Jewelry
+                </button>
+                <button onclick="filterProducts('saree', this)" class="category-btn px-6 py-2 border-b-2 border-gray-300 text-gray-600 font-bold uppercase text-sm whitespace-nowrap hover:text-red-900 transition">
+                    👗 Sarees
+                </button>
+                <button onclick="filterProducts('kurti', this)" class="category-btn px-6 py-2 border-b-2 border-gray-300 text-gray-600 font-bold uppercase text-sm whitespace-nowrap hover:text-red-900 transition">
+                    👚 Kurtis
+                </button>
+                <button onclick="filterProducts('accessories', this)" class="category-btn px-6 py-2 border-b-2 border-gray-300 text-gray-600 font-bold uppercase text-sm whitespace-nowrap hover:text-red-900 transition">
+                    ✨ Accessories
+                </button>
+                <button onclick="filterProducts('lehenga', this)" class="category-btn px-6 py-2 border-b-2 border-gray-300 text-gray-600 font-bold uppercase text-sm whitespace-nowrap hover:text-red-900 transition">
+                    👰 Lehenga
+                </button>
+            </div>
+
+            <!-- Products Grid -->
+            <div class="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4" id="main-store">
+                
+                <!-- Product 1 -->
+                <div class="product-item jewelry bg-white border border-gray-100 rounded-xl shadow-md overflow-hidden hover:shadow-2xl transition-all duration-300 scroll-reveal">
+                    <div class="product-image-container">
+                        <img src="https://images.meesho.com/images/products/374567215/1v2sc_512.webp" alt="Gold Flower Jewelry">
+                        <span class="absolute top-3 left-3 badge-new text-white text-[9px] px-3 py-1 font-bold rounded-full">BESTSELLER</span>
+                        <span class="absolute top-3 right-3 badge-sale text-white text-[9px] px-3 py-1 font-bold rounded-full">-80%</span>
+                    </div>
+                    <div class="p-4 text-center">
+                        <h3 class="font-bold text-sm text-gray-800 mb-1 line-clamp-2">Gold-Plated Flower Jewelry Set</h3>
+                        <p class="text-[10px] text-gray-500 mb-2 italic">Necklace + Earrings</p>
+                        <div class="flex justify-center items-center space-x-1 mb-2">
+                            <span class="rating">★★★★★</span>
+                            <span class="text-[9px] text-gray-500">(5000+)</span>
+                        </div>
+                        <div class="flex justify-center items-center space-x-2 mb-3">
+                            <span class="text-red-900 font-bold text-xl">₹199</span>
+                            <span class="line-through text-gray-400 text-xs">₹999</span>
+                        </div>
+                        <p class="text-[9px] text-green-600 font-bold mb-3">✓ 5000+ Happy Customers</p>
+                        <button onclick="openModal('Gold-Plated Flower Jewelry Set', '199', 'jewelry')" class="w-full btn-gradient text-white py-2 text-[11px] tracking-wider font-bold uppercase rounded-lg">
+                            <i class="fas fa-shopping-cart"></i> Buy Now
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Product 2 -->
+                <div class="product-item saree bg-white border border-gray-100 rounded-xl shadow-md overflow-hidden hover:shadow-2xl transition-all duration-300 scroll-reveal">
+                    <div class="product-image-container">
+                        <img src="https://images.meesho.com/images/products/374567216/silk_saree_512.webp" alt="Silk Saree">
+                        <span class="absolute top-3 left-3 badge-new text-white text-[9px] px-3 py-1 font-bold rounded-full">NEW</span>
+                        <span class="absolute top-3 right-3 badge-sale text-white text-[9px] px-3 py-1 font-bold rounded-full">-60%</span>
+                    </div>
+                    <div class="p-4 text-center">
+                        <h3 class="font-bold text-sm text-gray-800 mb-1 line-clamp-2">Silk Saree - Traditional</h3>
+                        <p class="text-[10px] text-gray-500 mb-2 italic">6 Yards Pure Silk</p>
+                        <div class="flex justify-center items-center space-x-1 mb-2">
+                            <span class="rating">★★★★★</span>
+                            <span class="text-[9px] text-gray-500">(2300+)</span>
+                        </div>
+                        <div class="flex justify-center items-center space-x-2 mb-3">
+                            <span class="text-red-900 font-bold text-xl">₹499</span>
+                            <span class="line-through text-gray-400 text-xs">₹1299</span>
+                        </div>
+                        <p class="text-[9px] text-green-600 font-bold mb-3">✓ 2300+ Happy Customers</p>
+                        <button onclick="openModal('Silk Saree - Traditional Design', '499', 'saree')" class="w-full btn-gradient text-white py-2 text-[11px] tracking-wider font-bold uppercase rounded-lg">
+                            <i class="fas fa-shopping-cart"></i> Buy Now
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Product 3 -->
+                <div class="product-item kurti bg-white border border-gray-100 rounded-xl shadow-md overflow-hidden hover:shadow-2xl transition-all duration-300 scroll-reveal">
+                    <div class="product-image-container">
+                        <img src="https://images.meesho.com/images/products/374567217/kurti_512.webp" alt="Embroidered Kurti">
+                        <span class="absolute top-3 left-3 badge-new text-white text-[9px] px-3 py-1 font-bold rounded-full">TRENDING</span>
+                        <span class="absolute top-3 right-3 badge-sale text-white text-[9px] px-3 py-1 font-bold rounded-full">-50%</span>
+                    </div>
+                    <div class="p-4 text-center">
+                        <h3 class="font-bold text-sm text-gray-800 mb-1 line-clamp-2">Embroidered Kurti</h3>
+                        <p class="text-[10px] text-gray-500 mb-2 italic">Cotton Blend, S-XXL</p>
+                        <div class="flex justify-center items-center space-x-1 mb-2">
+                            <span class="rating">★★★★☆</span>
+                            <span class="text-[9px] text-gray-500">(1500+)</span>
+                        </div>
+                        <div class="flex justify-center items-center space-x-2 mb-3">
+                            <span class="text-red-900 font-bold text-xl">₹299</span>
+                            <span class="line-through text-gray-400 text-xs">₹599</span>
+                        </div>
+                        <p class="text-[9px] text-green-600 font-bold mb-3">✓ 1500+ Happy Customers</p>
+                        <button onclick="openModal('Embroidered Kurti - Cotton Blend', '299', 'kurti')" class="w-full btn-gradient text-white py-2 text-[11px] tracking-wider font-bold uppercase rounded-lg">
+                            <i class="fas fa-shopping-cart"></i> Buy Now
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Product 4 -->
+                <div class="product-item accessories bg-white border border-gray-100 rounded-xl shadow-md overflow-hidden hover:shadow-2xl transition-all duration-300 scroll-reveal">
+                    <div class="product-image-container">
+                        <img src="https://images.meesho.com/images/products/374567218/bangles_512.webp" alt="Bangles">
+                        <span class="absolute top-3 left-3 badge-new text-white text-[9px] px-3 py-1 font-bold rounded-full">SALE</span>
+                        <span class="absolute top-3 right-3 badge-sale text-white text-[9px] px-3 py-1 font-bold rounded-full">-75%</span>
+                    </div>
+                    <div class="p-4 text-center">
+                        <h3 class="font-bold text-sm text-gray-800 mb-1 line-clamp-2">Glass Bangles Set</h3>
+                        <p class="text-[10px] text-gray-500 mb-2 italic">12 Pieces Multicolor</p>
+                        <div class="flex justify-center items-center space-x-1 mb-2">
+                            <span class="rating">★★★★★</span>
+                            <span class="text-[9px] text-gray-500">(8000+)</span>
+                        </div>
+                        <div class="flex justify-center items-center space-x-2 mb-3">
+                            <span class="text-red-900 font-bold text-xl">₹99</span>
+                            <span class="line-through text-gray-400 text-xs">₹399</span>
+                        </div>
+                        <p class="text-[9px] text-green-600 font-bold mb-3">✓ 8000+ Happy Customers</p>
+                        <button onclick="openModal('Glass Bangles Set - 12 Pieces', '99', 'accessories')" class="w-full btn-gradient text-white py-2 text-[11px] tracking-wider font-bold uppercase rounded-lg">
+                            <i class="fas fa-shopping-cart"></i> Buy Now
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Product 5 -->
+                <div class="product-item kurti bg-white border border-gray-100 rounded-xl shadow-md overflow-hidden hover:shadow-2xl transition-all duration-300 scroll-reveal">
+                    <div class="product-image-container">
+                        <img src="https://images.meesho.com/images/products/374567219/anarkali_512.webp" alt="Anarkali Suit">
+                        <span class="absolute top-3 left-3 badge-new text-white text-[9px] px-3 py-1 font-bold rounded-full">EXCLUSIVE</span>
+                        <span class="absolute top-3 right-3 badge-sale text-white text-[9px] px-3 py-1 font-bold rounded-full">-55%</span>
+                    </div>
+                    <div class="p-4 text-center">
+                        <h3 class="font-bold text-sm text-gray-800 mb-1 line-clamp-2">Anarkali Suit</h3>
+                        <p class="text-[10px] text-gray-500 mb-2 italic">3-Piece Set with Dupatta</p>
+                        <div class="flex justify-center items-center space-x-1 mb-2">
+                            <span class="rating">★★★★★</span>
+                            <span class="text-[9px] text-gray-500">(3200+)</span>
+                        </div>
+                        <div class="flex justify-center items-center space-x-2 mb-3">
+                            <span class="text-red-900 font-bold text-xl">₹699</span>
+                            <span class="line-through text-gray-400 text-xs">₹1599</span>
+                        </div>
+                        <p class="text-[9px] text-green-600 font-bold mb-3">✓ 3200+ Happy Customers</p>
+                        <button onclick="openModal('Anarkali Suit - 3 Piece Set', '699', 'kurti')" class="w-full btn-gradient text-white py-2 text-[11px] tracking-wider font-bold uppercase rounded-lg">
+                            <i class="fas fa-shopping-cart"></i> Buy Now
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Product 6 -->
+                <div class="product-item jewelry bg-white border border-gray-100 rounded-xl shadow-md overflow-hidden hover:shadow-2xl transition-all duration-300 scroll-reveal">
+                    <div class="product-image-container">
+                        <img src="https://images.meesho.com/images/products/374567220/earrings_512.webp" alt="Earrings">
+                        <span class="absolute top-3 left-3 badge-new text-white text-[9px] px-3 py-1 font-bold rounded-full">POPULAR</span>
+                        <span class="absolute top-3 right-3 badge-sale text-white text-[9px] px-3 py-1 font-bold rounded-full">-65%</span>
+                    </div>
+                    <div class="p-4 text-center">
+                        <h3 class="font-bold text-sm text-gray-800 mb-1 line-clamp-2">Pearl Drop Earrings</h3>
+                        <p class="text-[10px] text-gray-500 mb-2 italic">Gold-Plated Pearl</p>
+                        <div class="flex justify-center items-center space-x-1 mb-2">
+                            <span class="rating">★★★★★</span>
+                            <span class="text-[9px] text-gray-500">(6500+)</span>
+                        </div>
+                        <div class="flex justify-center items-center space-x-2 mb-3">
+                            <span class="text-red-900 font-bold text-xl">₹149</span>
+                            <span class="line-through text-gray-400 text-xs">₹429</span>
+                        </div>
+                        <p class="text-[9px] text-green-600 font-bold mb-3">✓ 6500+ Happy Customers</p>
+                        <button onclick="openModal('Pearl Drop Earrings - Gold Plated', '149', 'jewelry')" class="w-full btn-gradient text-white py-2 text-[11px] tracking-wider font-bold uppercase rounded-lg">
+                            <i class="fas fa-shopping-cart"></i> Buy Now
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Product 7 -->
+                <div class="product-item lehenga bg-white border border-gray-100 rounded-xl shadow-md overflow-hidden hover:shadow-2xl transition-all duration-300 scroll-reveal">
+                    <div class="product-image-container">
+                        <img src="https://images.meesho.com/images/products/374567221/lehenga_512.webp" alt="Lehenga">
+                        <span class="absolute top-3 left-3 badge-new text-white text-[9px] px-3 py-1 font-bold rounded-full">BESTSELLER</span>
+                        <span class="absolute top-3 right-3 badge-sale text-white text-[9px] px-3 py-1 font-bold rounded-full">-70%</span>
+                    </div>
+                    <div class="p-4 text-center">
+                        <h3 class="font-bold text-sm text-gray-800 mb-1 line-clamp-2">Embroidered Lehenga Choli</h3>
+                        <p class="text-[10px] text-gray-500 mb-2 italic">3-Piece With Dupatta</p>
+                        <div class="flex justify-center items-center space-x-1 mb-2">
+                            <span class="rating">★★★★★</span>
+                            <span class="text-[9px] text-gray-500">(4100+)</span>
+                        </div>
+                        <div class="flex justify-center items-center space-x-2 mb-3">
+                            <span class="text-red-900 font-bold text-xl">₹899</span>
+                            <span class="line-through text-gray-400 text-xs">₹2999</span>
+                        </div>
+                        <p class="text-[9px] text-green-600 font-bold mb-3">✓ 4100+ Happy Customers</p>
+                        <button onclick="openModal('Embroidered Lehenga Choli - 3 Piece', '899', 'lehenga')" class="w-full btn-gradient text-white py-2 text-[11px] tracking-wider font-bold uppercase rounded-lg">
+                            <i class="fas fa-shopping-cart"></i> Buy Now
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Product 8 -->
+                <div class="product-item accessories bg-white border border-gray-100 rounded-xl shadow-md overflow-hidden hover:shadow-2xl transition-all duration-300 scroll-reveal">
+                    <div class="product-image-container">
+                        <img src="https://images.meesho.com/images/products/374567222/bindi_512.webp" alt="Bindi Set">
+                        <span class="absolute top-3 left-3 badge-new text-white text-[9px] px-3 py-1 font-bold rounded-full">FESTIVAL</span>
+                        <span class="absolute top-3 right-3 badge-sale text-white text-[9px] px-3 py-1 font-bold rounded-full">-70%</span>
+                    </div>
+                    <div class="p-4 text-center">
+                        <h3 class="font-bold text-sm text-gray-800 mb-1 line-clamp-2">Bindi & Tikka Set</h3>
+                        <p class="text-[10px] text-gray-500 mb-2 italic">50+ Designs</p>
+                        <div class="flex justify-center items-center space-x-1 mb-2">
+                            <span class="rating">★★★★★</span>
+                            <span class="text-[9px] text-gray-500">(9200+)</span>
+                        </div>
+                        <div class="flex justify-center items-center space-x-2 mb-3">
+                            <span class="text-red-900 font-bold text-xl">₹79</span>
+                            <span class="line-through text-gray-400 text-xs">₹259</span>
+                        </div>
+                        <p class="text-[9px] text-green-600 font-bold mb-3">✓ 9200+ Happy Customers</p>
+                        <button onclick="openModal('Bindi & Tikka Set - 50+ Designs', '79', 'accessories')" class="w-full btn-gradient text-white py-2 text-[11px] tracking-wider font-bold uppercase rounded-lg">
+                            <i class="fas fa-shopping-cart"></i> Buy Now
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Product 9 -->
+                <div class="product-item saree bg-white border border-gray-100 rounded-xl shadow-md overflow-hidden hover:shadow-2xl transition-all duration-300 scroll-reveal">
+                    <div class="product-image-container">
+                        <img src="https://images.meesho.com/images/products/374567223/cotton_saree_512.webp" alt="Cotton Saree">
+                        <span class="absolute top-3 left-3 badge-new text-white text-[9px] px-3 py-1 font-bold rounded-full">NEW</span>
+                        <span class="absolute top-3 right-3 badge-sale text-white text-[9px] px-3 py-1 font-bold rounded-full">-45%</span>
+                    </div>
+                    <div class="p-4 text-center">
+                        <h3 class="font-bold text-sm text-gray-800 mb-1 line-clamp-2">Cotton Saree - Printed</h3>
+                        <p class="text-[10px] text-gray-500 mb-2 italic">Daily Wear Saree</p>
+                        <div class="flex justify-center items-center space-x-1 mb-2">
+                            <span class="rating">★★★★☆</span>
+                            <span class="text-[9px] text-gray-500">(1800+)</span>
+                        </div>
+                        <div class="flex justify-center items-center space-x-2 mb-3">
+                            <span class="text-red-900 font-bold text-xl">₹299</span>
+                            <span class="line-through text-gray-400 text-xs">₹549</span>
+                        </div>
+                        <p class="text-[9px] text-green-600 font-bold mb-3">✓ 1800+ Happy Customers</p>
+                        <button onclick="openModal('Cotton Saree - Printed Design', '299', 'saree')" class="w-full btn-gradient text-white py-2 text-[11px] tracking-wider font-bold uppercase rounded-lg">
+                            <i class="fas fa-shopping-cart"></i> Buy Now
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Product 10 -->
+                <div class="product-item kurti bg-white border border-gray-100 rounded-xl shadow-md overflow-hidden hover:shadow-2xl transition-all duration-300 scroll-reveal">
+                    <div class="product-image-container">
+                        <img src="https://images.meesho.com/images/products/374567224/palazzo_512.webp" alt="Kurti with Palazzo">
+                        <span class="absolute top-3 left-3 badge-new text-white text-[9px] px-3 py-1 font-bold rounded-full">TRENDING</span>
+                        <span class="absolute top-3 right-3 badge-sale text-white text-[9px] px-3 py-1 font-bold rounded-full">-52%</span>
+                    </div>
+                    <div class="p-4 text-center">
+                        <h3 class="font-bold text-sm text-gray-800 mb-1 line-clamp-2">Kurti With Palazzo Set</h3>
+                        <p class="text-[10px] text-gray-500 mb-2 italic">2-Piece Comfort Wear</p>
+                        <div class="flex justify-center items-center space-x-1 mb-2">
+                            <span class="rating">★★★★★</span>
+                            <span class="text-[9px] text-gray-500">(2900+)</span>
+                        </div>
+                        <div class="flex justify-center items-center space-x-2 mb-3">
+                            <span class="text-red-900 font-bold text-xl">₹399</span>
+                            <span class="line-through text-gray-400 text-xs">₹829</span>
+                        </div>
+                        <p class="text-[9px] text-green-600 font-bold mb-3">✓ 2900+ Happy Customers</p>
+                        <button onclick="openModal('Kurti With Palazzo Set', '399', 'kurti')" class="w-full btn-gradient text-white py-2 text-[11px] tracking-wider font-bold uppercase rounded-lg">
+                            <i class="fas fa-shopping-cart"></i> Buy Now
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Product 11 -->
+                <div class="product-item jewelry bg-white border border-gray-100 rounded-xl shadow-md overflow-hidden hover:shadow-2xl transition-all duration-300 scroll-reveal">
+                    <div class="product-image-container">
+                        <img src="https://images.meesho.com/images/products/374567225/bracelet_512.webp" alt="Bracelet">
+                        <span class="absolute top-3 left-3 badge-new text-white text-[9px] px-3 py-1 font-bold rounded-full">EXCLUSIVE</span>
+                        <span class="absolute top-3 right-3 badge-sale text-white text-[9px] px-3 py-1 font-bold rounded-full">-68%</span>
+                    </div>
+                    <div class="p-4 text-center">
+                        <h3 class="font-bold text-sm text-gray-800 mb-1 line-clamp-2">Gold Bangle Bracelet</h3>
+                        <p class="text-[10px] text-gray-500 mb-2 italic">Designer Style</p>
+                        <div class="flex justify-center items-center space-x-1 mb-2">
+                            <span class="rating">★★★★★</span>
+                            <span class="text-[9px] text-gray-500">(7600+)</span>
+                        </div>
+                        <div class="flex justify-center items-center space-x-2 mb-3">
+                            <span class="text-red-900 font-bold text-xl">₹179</span>
+                            <span class="line-through text-gray-400 text-xs">₹559</span>
+                        </div>
+                        <p class="text-[9px] text-green-600 font-bold mb-3">✓ 7600+ Happy Customers</p>
+                        <button onclick="openModal('Gold Bangle Bracelet - Designer', '179', 'jewelry')" class="w-full btn-gradient text-white py-2 text-[11px] tracking-wider font-bold uppercase rounded-lg">
+                            <i class="fas fa-shopping-cart"></i> Buy Now
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Product 12 -->
+                <div class="product-item lehenga bg-white border border-gray-100 rounded-xl shadow-md overflow-hidden hover:shadow-2xl transition-all duration-300 scroll-reveal">
+                    <div class="product-image-container">
+                        <img src="https://images.meesho.com/images/products/374567226/sharara_512.webp" alt="Sharara">
+                        <span class="absolute top-3 left-3 badge-new text-white text-[9px] px-3 py-1 font-bold rounded-full">FESTIVE</span>
+                        <span class="absolute top-3 right-3 badge-sale text-white text-[9px] px-3 py-1 font-bold rounded-full">-62%</span>
+                    </div>
+                    <div class="p-4 text-center">
+                        <h3 class="font-bold text-sm text-gray-800 mb-1 line-clamp-2">Sharara Suit - Embroidered</h3>
+                        <p class="text-[10px] text-gray-500 mb-2 italic">3-Piece With Dupatta</p>
+                        <div class="flex justify-center items-center space-x-1 mb-2">
+                            <span class="rating">★★★★★</span>
+                            <span class="text-[9px] text-gray-500">(3500+)</span>
+                        </div>
+                        <div class="flex justify-center items-center space-x-2 mb-3">
+                            <span class="text-red-900 font-bold text-xl">₹799</span>
+                            <span class="line-through text-gray-400 text-xs">₹2099</span>
+                        </div>
+                        <p class="text-[9px] text-green-600 font-bold mb-3">✓ 3500+ Happy Customers</p>
+                        <button onclick="openModal('Sharara Suit - Embroidered', '799', 'lehenga')" class="w-full btn-gradient text-white py-2 text-[11px] tracking-wider font-bold uppercase rounded-lg">
+                            <i class="fas fa-shopping-cart"></i> Buy Now
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Why Choose SHYAMA Section -->
+    <section class="bg-gradient-to-r from-red-900 to-red-800 text-white py-16 mt-20">
+        <div class="max-w-7xl mx-auto px-4">
+            <h2 class="text-4xl brand-font text-center mb-12 italic">Kyon SHYAMA Choose Karein?</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="text-center p-6 hover:transform hover:scale-105 transition">
+                    <div class="feature-icon text-5xl mb-4">🚚</div>
+                    <h3 class="font-bold mb-2 text-lg">FREE Delivery</h3>
+                    <p class="text-sm text-gray-200">Sabhi orders par FREE shipping nationwide. Koi extra charge nahi!</p>
+                </div>
+                <div class="text-center p-6 hover:transform hover:scale-105 transition">
+                    <div class="feature-icon text-5xl mb-4">💳</div>
+                    <h3 class="font-bold mb-2 text-lg">Cash on Delivery</h3>
+                    <p class="text-sm text-gray-200">Ghare baithke order karo. Payment delivery ke time ho jayegi!</p>
+                </div>
+                <div class="text-center p-6 hover:transform hover:scale-105 transition">
+                    <div class="feature-icon text-5xl mb-4">✓</div>
+                    <h3 class="font-bold mb-2 text-lg">100% Original</h3>
+                    <p class="text-sm text-gray-200">Sirf original products. Quality guarantee ke saath!</p>
+                </div>
+                <div class="text-center p-6 hover:transform hover:scale-105 transition">
+                    <div class="feature-icon text-5xl mb-4">📞</div>
+                    <h3 class="font-bold mb-2 text-lg">24/7 Support</h3>
+                    <p class="text-sm text-gray-200">Koi problem? Turant WhatsApp kariye. Hum hamesha ready hain!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="py-16 max-w-7xl mx-auto px-4 mt-10">
+        <h2 class="text-4xl brand-font text-center mb-12 text-gray-800 italic">Customer Love ❤️</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="testimonial-card p-6 rounded-xl">
+                <p class="text-yellow-400 mb-3 text-lg">⭐⭐⭐⭐⭐</p>
+                <p class="text-gray-700 text-sm mb-4 italic">"Bohot accha product! Bilkul expected jaisa aya. Delivery bhi bohot fast tha. Sabko recommend kara."</p>
+                <p class="font-bold text-gray-800">👤 Priya Singh</p>
+                <p class="text-xs text-gray-500">Mumbai | Verified Buyer ✓</p>
+            </div>
+            <div class="testimonial-card p-6 rounded-xl">
+                <p class="text-yellow-400 mb-3 text-lg">⭐⭐⭐⭐⭐</p>
+                <p class="text-gray-700 text-sm mb-4 italic">"Diwali ke liye order kiya. Sab kuch perfect tha! Saree ki quality kamaal ki hai. Bilkul meri expectation se zyada!"</p>
+                <p class="font-bold text-gray-800">👤 Anjali Patel</p>
+                <p class="text-xs text-gray-500">Bangalore | Verified Buyer ✓</p>
+            </div>
+            <div class="testimonial-card p-6 rounded-xl">
+                <p class="text-yellow-400 mb-3 text-lg">⭐⭐⭐⭐⭐</p>
+                <p class="text-gray-700 text-sm mb-4 italic">"Best prices aur quality! COD mein order kiya toh delivery tak koi problem nahi hua. Highly satisfied!"</p>
+                <p class="font-bold text-gray-800">👤 Neha Sharma</p>
+                <p class="text-xs text-gray-500">Delhi | Verified Buyer ✓</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="bg-red-50 py-16 mt-10 border-t-4 border-red-900">
+        <div class="max-w-2xl mx-auto px-4 text-center">
+            <h2 class="text-3xl font-bold text-gray-800 mb-4">Exclusive Offers Paayein!</h2>
+            <p class="text-gray-600 mb-6">Subscribe to get special discounts aur early access to new collections!</p>
+            <div class="flex gap-2 mb-4">
+                <input type="email" placeholder="Apna Email Daalen..." class="flex-1 px-4 py-3 border-2 border-red-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-900">
+                <button class="btn-gradient text-white px-6 py-3 rounded-lg font-bold uppercase">Subscribe</button>
+            </div>
+            <p class="text-xs text-gray-500">Hum spam nahi karenege. Sirf special offers!</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-16 mt-10">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <h3 class="brand-font text-2xl mb-4 italic">✨ SHYAMA</h3>
+                    <p class="text-gray-400 text-sm">Premium ethnic wear ke liye #1 destination. Authenticity aur Quality ke saath.</p>
+                    <div class="flex space-x-3 mt-4">
+                        <a href="#" class="text-gray-400 hover:text-red-400 transition"><i class="fab fa-instagram text-xl"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-red-400 transition"><i class="fab fa-facebook text-xl"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-red-400 transition"><i class="fab fa-whatsapp text-xl"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-red-400 transition"><i class="fab fa-twitter text-xl"></i></a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4 text-lg">Quick Links</h4>
+                    <ul class="text-gray-400 text-sm space-y-2">
+                        <li><a href="#" class="hover:text-red-400 transition">Home</a></li>
+                        <li><a href="#" class="hover:text-red-400 transition">About Us</a></li>
+                        <li><a href="#" class="hover:text-red-400 transition">Collections</a></li>
+                        <li><a href="#" class="hover:text-red-400 transition">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4 text-lg">Policies</h4>
+                    <ul class="text-gray-400 text-sm space-y-2">
+                        <li><a href="#" class="hover:text-red-400 transition">Returns Policy</a></li>
+                        <li><a href="#" class="hover:text-red-400 transition">Privacy Policy</a></li>
+                        <li><a href="#" class="hover:text-red-400 transition">Terms & Conditions</a></li>
+                        <li><a href="#" class="hover:text-red-400 transition">Shipping Info</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4 text-lg">Contact Info</h4>
+                    <p class="text-gray-400 text-sm mb-2">📧 <a href="mailto:prataprishi773@gmail.com" class="hover:text-red-400">prataprishi773@gmail.com</a></p>
+                    <p class="text-gray-400 text-sm mb-2">📞 <a href="tel:+919876543210" class="hover:text-red-400">+91-9876-543-210</a></p>
+                    <p class="text-gray-400 text-sm">🏠 New Delhi, India</p>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 pt-8 text-center">
+                <p class="text-gray-400 text-sm">© 2026 SHYAMA Premium Ethnic Store. All Rights Reserved.</p>
+                <p class="text-gray-500 text-xs mt-2">Made with ❤️ for Indian Women | Designed with Excellence</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Order Modal -->
+    <div id="orderModal" class="hidden fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4 z-[100] overflow-y-auto">
+        <div id="modal-content" class="bg-white p-8 rounded-2xl w-full max-w-2xl relative shadow-2xl my-8 glass-effect">
+            <button onclick="closeModal()" class="absolute top-4 right-6 text-3xl font-light text-gray-400 hover:text-red-900 transition-colors w-8 h-8 flex items-center justify-center">
+                <i class="fas fa-times"></i>
+            </button>
+            
+            <div id="form-container">
+                <div class="mb-6">
+                    <h2 class="text-3xl brand-font text-red-900 mb-4 italic">Apna Order Confirm Karein</h2>
+                    <div class="bg-red-50 p-4 rounded-lg border-l-4 border-red-900">
+                        <p class="text-sm font-bold text-gray-800">Product: <span id="modal-product-name" class="text-red-900"></span></p>
+                        <p class="text-sm font-bold text-gray-800">Price: <span id="modal-product-price" class="text-red-900 text-lg">₹</span></p>
+                        <p class="text-xs text-green-600 mt-2">✓ 100% Original Product | ✓ Free Delivery | ✓ Pay on Delivery</p>
+                    </div>
+                </div>
+                
+                <form action="https://formsubmit.co/prataprishi773@gmail.com" method="POST" onsubmit="showSuccess(event)" class="space-y-5">
+                    <input type="hidden" name="_subject" value="🎉 Naya Order SHYAMA Store Se!">
+                    <input type="hidden" name="_template" value="table">
+                    <input type="hidden" name="_captcha" value="false">
+                    <input type="hidden" name="_next" value="https://singhsangeeta9546-wq.github.io/my-website/">
+                    
+                    <input type="hidden" name="Selected_Product" id="p_name">
+                    <input type="hidden" name="Selling_Price" id="p_price">
+                    
+                    <!-- Personal Details Section -->
+                    <div class="border-t pt-4">
+                        <h3 class="font-bold text-gray-800 mb-4 flex items-center"><i class="fas fa-user-circle mr-2 text-red-900"></i> Personal Details</h3>
+                        
+                        <div class="mb-4">
+                            <label class="text-sm font-bold text-gray-700 block mb-2">👤 Aapka Naam *</label>
+                            <input type="text" name="customer_name" class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-red-900 focus:ring-2 focus:ring-red-100" placeholder="Jaise: Rahul Sharma" required>
+                        </div>
+                        
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="text-sm font-bold text-gray-700 block mb-2">📱 Mobile Number *</label>
+                                <input type="tel" name="phone" class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-red-900 focus:ring-2 focus:ring-red-100" placeholder="98XXXXXXXX" pattern="[0-9]{10}" required>
+                            </div>
+                            <div>
+                                <label class="text-sm font-bold text-gray-700 block mb-2">📧 Email *</label>
+                                <input type="email" name="email" class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-red-900 focus:ring-2 focus:ring-red-100" placeholder="example@gmail.com" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Delivery Details Section -->
+                    <div class="border-t pt-4">
+                        <h3 class="font-bold text-gray-800 mb-4 flex items-center"><i class="fas fa-map-marker-alt mr-2 text-red-900"></i> Delivery Details</h3>
+                        
+                        <div class="grid grid-cols-2 gap-4 mb-4">
+                            <div>
+                                <label class="text-sm font-bold text-gray-700 block mb-2">🏙️ City *</label>
+                                <input type="text" name="city" class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-red-900 focus:ring-2 focus:ring-red-100" placeholder="Jaise: Mumbai" required>
+                            </div>
+                            <div>
+                                <label class="text-sm font-bold text-gray-700 block mb-2">📍 Pincode *</label>
+                                <input type="text" name="pincode" class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-red-900 focus:ring-2 focus:ring-red-100" placeholder="400001" pattern="[0-9]{6}" required>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label class="text-sm font-bold text-gray-700 block mb-2">🏠 Poora Pata (Address) *</label>
+                            <textarea name="address" rows="3" class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-red-900 focus:ring-2 focus:ring-red-100" placeholder="House No, Building Name, Street, Landmark (if any)" required></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Size Selection -->
+                    <div class="border-t pt-4" id="size-section" style="display:none;">
+                        <h3 class="font-bold text-gray-800 mb-4">Size (Optional)</h3>
+                        <div class="flex gap-2">
+                            <button type="button" class="size-option" onclick="selectSize(this, 'S')">S</button>
+                            <button type="button" class="size-option" onclick="selectSize(this, 'M')">M</button>
+                            <button type="button" class="size-option" onclick="selectSize(this, 'L')">L</button>
+                            <button type="button" class="size-option" onclick="selectSize(this, 'XL')">XL</button>
+                            <button type="button" class="size-option" onclick="selectSize(this, 'XXL')">XXL</button>
+                        </div>
+                        <input type="hidden" name="size" id="selected_size">
+                    </div>
+
+                    <!-- Payment Method -->
+                    <div class="border-t pt-4">
+                        <h3 class="font-bold text-gray-800 mb-4 flex items-center"><i class="fas fa-credit-card mr-2 text-red-900"></i> Payment Method</h3>
+                        <div class="payment-method active" onclick="selectPayment(this)">
+                            <p class="font-bold text-gray-800"><i class="fas fa-money-bill-wave mr-2 text-green-600"></i> Cash on Delivery (COD)</p>
+                            <p class="text-xs text-gray-600 mt-1">Koi prepayment nahi! Delivery ke waqt payment karenge.</p>
+                        </div>
+                    </div>
+
+                    <!-- Terms -->
+                    <div class="bg-yellow-50 p-4 rounded-lg border border-yellow-200">
+                        <p class="text-xs text-gray-700">
+                            <i class="fas fa-check-circle text-green-600 mr-2"></i>
+                            By placing this order, you agree to our Terms & Conditions and Privacy Policy.
+                        </p>
+                    </div>
+                    
+                    <button type="submit" class="w-full btn-gradient text-white py-4 font-bold tracking-widest uppercase rounded-lg shadow-lg flex items-center justify
